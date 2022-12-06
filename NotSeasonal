@@ -1,0 +1,67 @@
+install.packages("zoo")
+install.packages("devtools")
+devtools::install_github("FinYang/tsdl")
+install.packages("nortest")
+install.packages("fBasics")
+install.packages("forecast")
+install.packages("tseries")
+install.packages("randtests")
+install.packages("astsa")
+install.packages("lmtest")
+library("zoo")
+library(tsdl)
+library(nortest)
+library(fBasics)
+library(forecast)
+library(tseries)
+library(randtests)
+library(astsa)
+library(lmtest)
+
+m = tsdl [[601]]
+ attributes(m)
+ 
+ plot(m)
+ lines(m)
+ lines(lowess(m))
+
+adf.test(m)
+
+ fit1 = arima(m,order=c(1,0,0))
+ coeftest(fit1)
+
+ fit2 = arima(m,order=c(0,0,1))
+ coeftest(fit2)
+
+ fit3 = arima(m,order=c(1,0,1))
+ coeftest(fit3)
+
+tsdiag(fit1) 
+
+tsdiag(fit2) 
+
+res1=fit1$res 
+
+ runs.test(res1) 
+
+res2=fit2$res 
+ runs.test(res2) 
+ 
+ t.test(res1) 
+
+t.test(res2) 
+
+shapiro.test(res1) 
+
+shapiro.test(res2) 
+
+fit1$aic 
+
+fit2$aic
+
+auto.arima(m)
+
+ f=forecast(fit2, h=10)
+ autoplot(f)
+f
+
